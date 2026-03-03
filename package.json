@@ -1,0 +1,26 @@
+{
+  "name": "redis-session",
+  "version": "0.0.1",
+  "description": "",
+  "homepage": "https://github.com/driftless-group/session#readme",
+  "bugs": {
+    "url": "https://github.com/driftless-group/session/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/driftless-group/session.git"
+  },
+  "license": "UNLICENSED",
+  "author": "Scott Ballantyne",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha -w"
+  },
+  "devDependencies": {
+    "@drifted/qa": "^0.0.4",
+    "@drifted/views": "^0.0.16",
+    "cookie-parser": "^1.4.7",
+    "qa": "^0.1.0"
+  }
+}
