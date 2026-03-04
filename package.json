@@ -1,6 +1,6 @@
 {
-  "name": "redis-session",
-  "version": "0.0.1",
+  "name": "@drifted/session",
+  "version": "0.0.2",
   "description": "",
   "homepage": "https://github.com/driftless-group/session#readme",
   "bugs": {
