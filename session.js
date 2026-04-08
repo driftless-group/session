@@ -23,7 +23,6 @@ class Session {
         })
       }).catch(console.log);
     })   
-
   }
 
   read() {

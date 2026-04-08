@@ -1,6 +1,6 @@
 {
   "name": "@drifted/session",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "",
   "homepage": "https://github.com/driftless-group/session#readme",
   "bugs": {
@@ -22,5 +22,8 @@
     "@drifted/views": "^0.0.16",
     "cookie-parser": "^1.4.7",
     "qa": "^0.1.0"
+  },
+  "dependencies": {
+    "redis": "^5.11.0"
   }
 }
