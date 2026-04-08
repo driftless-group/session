@@ -1,6 +1,6 @@
 {
   "name": "@drifted/session",
-  "version": "0.0.13",
+  "version": "0.0.22",
   "description": "",
   "homepage": "https://github.com/driftless-group/session#readme",
   "bugs": {
@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/driftless-group/session.git"
   },
-  "license": "UNLICENSED",
+  "license": "GPL-3.0",
   "author": "Scott Ballantyne",
   "type": "commonjs",
   "main": "index.js",
