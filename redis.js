@@ -17,6 +17,8 @@ let client = createClient({
   }
 }); 
 
+client.on('error', (err) => console.error('redis:client:session:error', err));
+
 client.connect();
 
 module.exports = client;
