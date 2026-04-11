@@ -16,22 +16,22 @@ class Session {
 
   unset(name) {
     var self = this;
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       client.hDel(self.id, name).then((response) => {
         self.read().then(() => {
           resolve();
         })
-      }).catch(console.log);
+      }).catch(reject);
     })   
   }
 
   read() {
     var self = this;
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       client.hGetAll(self.id).then((response) => {
         Object.assign(self, response)
         resolve();
-      }).catch(console.log);
+      }).catch(reject);
     })   
   }
 
@@ -46,10 +46,10 @@ class Session {
 
   save() {
     var self = this;
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       client.hSet(self.id, self.obj()).then(() => {
         resolve();
-      }).catch(console.log);
+      }).catch(reject);
     })
   }
 
