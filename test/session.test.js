@@ -1,10 +1,7 @@
 const path = require('path');
 const assert = require('assert')
 
-process.env.NODE_ENV = 'test';
-
-
-
+require('@drifted/env/test');
 var Session = require(path.join(__dirname, '..', 'session'));
 
 
