@@ -9,7 +9,7 @@ var Session = require(path.join(__dirname, '..', 'session'));
 
 
 describe('session:middleware', function() {
-  var app = appInstance({csrf: true});
+  var app = appInstance({});
 
   var server;
   app.use(cookieParser())
