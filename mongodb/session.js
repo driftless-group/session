@@ -27,7 +27,7 @@ class Session {
         } catch(error) {
           console.log(error);
         }
-        await client.close();
+        //await client.close();
         resolve(response);
 
       })
@@ -76,7 +76,7 @@ class Session {
         } catch(error) {
           console.log(error);
         }
-        await client.close();
+        //await client.close();
  
         self.read().then(() => {
           resolve();
@@ -111,7 +111,7 @@ class Session {
         } catch(error) {
           console.log(error);
         }
-        await client.close();
+        //await client.close();
  
         resolve(response);
 
@@ -154,7 +154,7 @@ class Session {
         } catch(error) {
           console.log(error);
         }
-        await client.close();
+        //await client.close();
         resolve(response);
 
       })
