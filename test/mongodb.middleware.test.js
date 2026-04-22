@@ -5,15 +5,13 @@ require('@drifted/env/test');
 
 var cookieParser = require('cookie-parser');
 const { appInstance, drive, supertest } = require('@drifted/qa');
-var Session = require(path.join(__dirname, '..', 'redis'));
 
-
-describe('session:middleware', function() {
+describe('session:middleware:mongodb', function() {
   var app = appInstance({});
 
   var server;
   app.use(cookieParser())
-  app.use(require(path.join(__dirname, '..')));
+  app.use(require(path.join(__dirname, '..', 'mongodb')));
 
   app.get('/', function(req, res) {
     if (req.session.count == undefined) {
@@ -21,7 +19,8 @@ describe('session:middleware', function() {
     }
 
     req.session.count += 1;
-    req.session.save().then(() => {
+    req.session.save().then((session) => {
+      req.session = session;
       res.json(req.session);
     })
   })
@@ -49,13 +48,12 @@ describe('session:middleware', function() {
       .end(function(err, res) {
         if (err) throw err;
         var json = JSON.parse(res.text);
-        id = json.id
-      
+        id = json._id
 
         supertest(app)
           .get('/count')
           .expect(200)
-          .set("Cookie", ['session', json.id].join('='))
+          .set("Cookie", ['session', json._id].join('='))
           .end(function(err, res) {
             if (err) throw err;
             var json = JSON.parse(res.text);

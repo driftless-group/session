@@ -9,6 +9,10 @@ class Session {
   
   constructor(options={}) {
     Object.assign(this, options);
+    
+    if (typeof this._id == 'string') {
+      this._id = new ObjectId(this._id);
+    }
   }
 
   static clear() {
@@ -53,16 +57,32 @@ class Session {
   }
 
   unset(name) {
-    var self = this;
+    var response, self = this;
     
-    delete this[name];
-
     return new Promise((resolve, reject) => {
-      self.save().then(() => {
+       connect().then(async(client) => {  
+        try {
+
+          const database = client.db(Session.database());
+          const sessions = database.collection("sessions");
+          const query = { _id: self._id };
+          
+          var updateDoc = {
+            "$unset": {}
+          }
+          updateDoc['$unset'][name] = '';
+          var ack = await sessions.updateOne(query, updateDoc);
+          response = await sessions.findOne({_id: self._id});
+        } catch(error) {
+          console.log(error);
+        }
+        await client.close();
+ 
         self.read().then(() => {
           resolve();
         })
-      }).catch(reject);
+
+      })
     })   
   }
 
@@ -86,6 +106,8 @@ class Session {
             self._id = ack.insertedId;
           }
 
+          Object.assign(self, response);
+
         } catch(error) {
           console.log(error);
         }
@@ -99,7 +121,9 @@ class Session {
 
   obj() {
     var self = this;
-    return Object.keys(this).filter((key) => { return key != '_id' }).reduce((obj, key) => {
+    return Object.keys(this).filter((key) => { 
+      return key != '_id'; 
+    }).reduce((obj, key) => {
       obj[key] = self[key];
 
       return obj;
