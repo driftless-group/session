@@ -4,7 +4,7 @@ const assert = require('assert')
 require('@drifted/env/test');
 
 var cookieParser = require('cookie-parser');
-const { appInstance, drive, supertest } = require('@drifted/qa');
+const { appInstance, supertest } = require('@drifted/qa');
 
 describe('session:redis:middleware', function() {
   var app = appInstance({});
