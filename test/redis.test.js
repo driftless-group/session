@@ -7,7 +7,7 @@ var Session = require(path.join(__dirname, '..', 'redis', 'session'));
 describe('session:redis', function() {
   var id;
   
-  it('Session.read', function(done) {
+  it('read', function(done) {
     Session.read(id).then((session) => {
       assert.notEqual(session.id, undefined);
       done();

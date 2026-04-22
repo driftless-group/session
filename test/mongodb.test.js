@@ -18,7 +18,7 @@ describe('session:mongodb', function() {
     })
   })
 
-  it('Session.read', function(done) {
+  it('read', function(done) {
     Session.read(_id).then((session) => {
       _id = session._id;
       done();
