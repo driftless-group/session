@@ -27,9 +27,8 @@ class Session {
         } catch(error) {
           console.log(error);
         }
-        //await client.close();
+      
         resolve(response);
-
       })
     })
 
@@ -70,14 +69,16 @@ class Session {
           var updateDoc = {
             "$unset": {}
           }
+
           updateDoc['$unset'][name] = '';
           var ack = await sessions.updateOne(query, updateDoc);
           response = await sessions.findOne({_id: self._id});
+          delete self[name];
+          Object.assign(self, response);
+
         } catch(error) {
           console.log(error);
         }
-        //await client.close();
- 
         self.read().then(() => {
           resolve();
         })
@@ -111,7 +112,6 @@ class Session {
         } catch(error) {
           console.log(error);
         }
-        //await client.close();
  
         resolve(response);
 
@@ -154,9 +154,8 @@ class Session {
         } catch(error) {
           console.log(error);
         }
-        //await client.close();
+      
         resolve(response);
-
       })
     })
   }
