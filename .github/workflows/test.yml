@@ -20,6 +20,7 @@ jobs:
       - name: Run tests
         env:
           REDIS_URL: ${{ secrets.REDIS_URL }}
+          MONGO_URL: ${{ secrets.MONGO_URL }}
         run: npx mocha --exit  
 
 
