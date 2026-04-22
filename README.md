@@ -11,4 +11,4 @@ Simple express middleware to add a session that works with redis.  It is meant t
 
 ```
 
-
+[![Run Tests](https://github.com/driftless-group/session/actions/workflows/test.yml/badge.svg)](https://github.com/driftless-group/session/actions/workflows/test.yml)
