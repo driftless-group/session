@@ -4,7 +4,11 @@ const assert = require('assert')
 require('@drifted/env/test');
 
 var cookieParser = require('cookie-parser');
-const { appInstance, drive, supertest } = require('@drifted/qa');
+const { 
+  appInstance, 
+  drive, 
+  supertest 
+} = require('@drifted/qa');
 
 describe('session:mongodb:middleware', function() {
   var app = appInstance({});

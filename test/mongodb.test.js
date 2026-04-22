@@ -7,8 +7,6 @@ var mongoose = require('mongoose');
 
 var Session = require(path.join(__dirname, '..', 'mongodb', 'session'));
 
-console.log(process.env.MONGO_URL);
-
 describe('session:mongodb', function() {
   var _id;
 
