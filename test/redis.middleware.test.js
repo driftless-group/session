@@ -6,7 +6,7 @@ require('@drifted/env/test');
 var cookieParser = require('cookie-parser');
 const { appInstance, drive, supertest } = require('@drifted/qa');
 
-describe('session:middleware:redis', function() {
+describe('session:redis:middleware', function() {
   var app = appInstance({});
 
   var server;
