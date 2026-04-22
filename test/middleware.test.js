@@ -1,11 +1,11 @@
 const path = require('path');
 const assert = require('assert')
 
-process.env.NODE_ENV = 'test';
+require('@drifted/env/test');
 
 var cookieParser = require('cookie-parser');
 const { appInstance, drive, supertest } = require('@drifted/qa');
-var Session = require(path.join(__dirname, '..', 'session'));
+var Session = require(path.join(__dirname, '..', 'redis'));
 
 
 describe('session:middleware', function() {

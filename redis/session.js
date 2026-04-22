@@ -1,9 +1,7 @@
 const path = require('path');
 const crypto = require('crypto');
 
-let client = require(path.join(__dirname, 'redis'));
-
-
+let client = require(path.join(__dirname, 'client'));
 
 class Session {
   
@@ -12,6 +10,15 @@ class Session {
     if (this.id == undefined) {
       this.id = crypto.randomUUID();
     }  
+  }
+
+  static read(id) {
+    return new Promise((resolve) => {
+      var session = new Session({id: id})     
+      session.read().then(() => {
+        resolve(session);
+      }).catch(console.log);
+    })
   }
 
   unset(name) {
