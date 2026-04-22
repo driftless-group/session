@@ -7,9 +7,6 @@ function SessionMiddleware(req, res, next) {
     res.cookie('session', req.session._id, { maxAge: 3600000, httpOnly: true });
     
     next();
-  }).catch((error) => {
-    console.log(error);
-    next()
   })
 }
 
