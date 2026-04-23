@@ -1,6 +1,5 @@
 const path = require('path');
 const Session = require(path.join(__dirname, '..', 'session'));
-
 const encryption = require(path.join(__dirname, '..', '..', 'encryption'));
 
 class HashedSession extends Session {
