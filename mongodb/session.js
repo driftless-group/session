@@ -9,10 +9,6 @@ class Session {
   
   constructor(options={}) {
     Object.assign(this, options);
-    
-    if (typeof this._id == 'string') {
-      this._id = new ObjectId(this._id);
-    }
   }
 
   static clear() {
@@ -20,7 +16,7 @@ class Session {
     return new Promise((resolve, reject) => {
       connect().then(async(client) => {  
         try {
-          const database = client.db(Session.database());
+          const database = client.db(self.class().database());
           const sessions = database.collection("sessions");
           response = await sessions.deleteMany({});
           
@@ -31,7 +27,6 @@ class Session {
         resolve(response);
       })
     })
-
   }
 
   static client() {
@@ -45,8 +40,13 @@ class Session {
   static connection() {
     return new URL(process.env.MONGO_URL)
   }
+  
+  static class() {
+    return Session
+  }
 
   static read(_id) {
+    var self = this;
     return new Promise((resolve) => {
       var session = new Session({_id: _id})     
       session.read().then(() => {
@@ -55,6 +55,7 @@ class Session {
     })
   }
 
+  // unset obviously needs to be rewritten in the hashed context.
   unset(name) {
     var response, self = this;
     
@@ -71,6 +72,7 @@ class Session {
           }
 
           updateDoc['$unset'][name] = '';
+
           var ack = await sessions.updateOne(query, updateDoc);
           response = await sessions.findOne({_id: self._id});
           delete self[name];
@@ -97,17 +99,19 @@ class Session {
 
           const database = client.db(Session.database());
           const sessions = database.collection("sessions");
-          const query = { _id: self._id };
+          const query = { _id: new ObjectId(self._id) };
 
           response = await sessions.findOne(query);
 
           if (response == null) {
             var ack = await sessions.insertOne({});
             response = await sessions.findOne({_id: ack.insertedId});
+
             self._id = ack.insertedId;
           }
 
-          Object.assign(self, response);
+          var processed = self.process(response);
+          Object.assign(self, processed);
 
         } catch(error) {
           console.log(error);
@@ -117,6 +121,10 @@ class Session {
 
       })
     })   
+  }
+
+  process(obj) {
+    return obj;
   }
 
   obj() {
@@ -130,6 +138,10 @@ class Session {
     }, {});
   }
 
+  prepare() {
+    return this.obj();
+  }
+
   save() {
     var response, self = this;
     return new Promise((resolve, reject) => {
@@ -137,25 +149,26 @@ class Session {
         try {
           const database = client.db(Session.database());
           const sessions = database.collection("sessions");
-          const query = { _id: self._id };
-         
+          const query = { _id: new ObjectId(self._id) };
+
           if (query._id != undefined) {
             const updateDoc = {
-              $set: self.obj()
+              $set: self.prepare()
             };
 
             var ack = await sessions.updateOne(query, updateDoc);
             response = await sessions.findOne(query);
           } else {
-            var ack = await sessions.insertOne(self.obj());
+            var ack = await sessions.insertOne(self.prepare());
             response = await sessions.findOne({_id: ack.insertedId});
           }
           
+          Object.assign(self, self.process(response));
         } catch(error) {
           console.log(error);
         }
       
-        resolve(response);
+        resolve(self);
       })
     })
   }

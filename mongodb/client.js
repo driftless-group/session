@@ -8,8 +8,8 @@ function connect(name='default') {
        (connections[name] != undefined && 
         connections[name].s.hasBeenClosed == true)) {
       
-        // i don't know if this has been closed 
-        // stuff is the right way to detect this.
+     // i don't know if this has been closed 
+     // stuff is the right way to detect this.
 
       var client = new MongoClient(process.env.MONGO_URL, {
         serverApi: {
