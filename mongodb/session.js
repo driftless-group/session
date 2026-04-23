@@ -2,15 +2,13 @@ const path = require('path');
 const crypto = require('crypto');
 const { URL } = require('node:url');
 
+var AbstractSession = require(path.join(__dirname, '..', 'abstract'));
+var client = require(path.join(__dirname, 'client'));
+
 let { connect  } = require(path.join(__dirname, 'client'));
 const { ObjectId } = require('mongodb');
 
-class Session {
-  
-  constructor(options={}) {
-    Object.assign(this, options);
-  }
-
+class Session extends AbstractSession {
   static clear() {
     var response, self = this;
     return new Promise((resolve, reject) => {
@@ -48,7 +46,7 @@ class Session {
   static read(_id) {
     var self = this;
     return new Promise((resolve) => {
-      var session = new Session({_id: _id})     
+      var session = new self({_id: _id})     
       session.read().then(() => {
         resolve(session);
       })
@@ -121,25 +119,6 @@ class Session {
 
       })
     })   
-  }
-
-  process(obj) {
-    return obj;
-  }
-
-  obj() {
-    var self = this;
-    return Object.keys(this).filter((key) => { 
-      return key != '_id'; 
-    }).reduce((obj, key) => {
-      obj[key] = self[key];
-
-      return obj;
-    }, {});
-  }
-
-  prepare() {
-    return this.obj();
   }
 
   save() {
