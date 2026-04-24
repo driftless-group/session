@@ -3,7 +3,7 @@ const Session = require(path.join(__dirname, '..', 'session'));
 const encryption = require(path.join(__dirname, '..', '..', 'encryption'));
 
 class HashedSession extends Session {
-
+  
   kdf(input) {
     return encryption.kdf(input);
   }
