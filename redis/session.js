@@ -11,7 +11,7 @@ class Session extends AbstractSession {
     
     return new Promise(async(resolve, reject) => {
       let cursor = 0;
-      var keys = await client.keys('*');
+      var keys = await client.keys('sessions:*');
 
       while(keys.length) {
         var key = keys.pop();

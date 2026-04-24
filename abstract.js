@@ -11,7 +11,7 @@ class AbstractSession {
   }
 
   prefix() {
-    return 'session';
+    return 'sessions';
   }
 
   generateId() {
