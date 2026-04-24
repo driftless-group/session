@@ -5,12 +5,29 @@ var AbstractSession = require(path.join(__dirname, '..', 'abstract'));
 var client = require(path.join(__dirname, 'client'));
 
 class Session extends AbstractSession {
-  
+
+  static clear() {
+    var self = this;
+    
+    return new Promise(async(resolve, reject) => {
+      let cursor = 0;
+      var keys = await client.keys('*');
+
+      while(keys.length) {
+        var key = keys.pop();
+        await client.del(key);
+      }
+
+      resolve();
+    })
+  }
+
   unset(name) {
     var self = this;
     return new Promise(async(resolve, reject) => {
       await client.del(self.id);
       delete self[name]; 
+
       self.save().then(() => {
         resolve();
       })

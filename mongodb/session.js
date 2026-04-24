@@ -53,7 +53,6 @@ class Session extends AbstractSession {
     })
   }
 
-  // unset obviously needs to be rewritten in the hashed context.
   unset(name) {
     var response, self = this;
     

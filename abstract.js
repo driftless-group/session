@@ -6,8 +6,19 @@ class AbstractSession {
   constructor(options={}) {
     Object.assign(this, options);
     if (this.id == undefined) {
-      this.id = crypto.randomUUID();
+      this.id = this.generateId();
     }  
+  }
+
+  prefix() {
+    return 'session';
+  }
+
+  generateId() {
+    return [
+      this.prefix(),
+      crypto.randomUUID()
+    ].join(':');
   }
 
   static read(id) {

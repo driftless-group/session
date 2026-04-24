@@ -1,5 +1,9 @@
 const path = require('path');
-const assert = require('assert')
+const assert = require('assert');
+
+var {
+  exception
+} = require('@drifted/qa');
 
 require('@drifted/env/test');
 var Session = require(path.join(__dirname, '..', 'redis', 'session'));
@@ -7,6 +11,12 @@ var Session = require(path.join(__dirname, '..', 'redis', 'session'));
 describe('session:redis', function() {
   var id;
   
+  after((done) => {
+    Session.clear().then(() => {
+      done();
+    }).catch(exception(done));
+  })
+
   it('read', function(done) {
     Session.read(id).then((session) => {
       assert.notEqual(session.id, undefined);
