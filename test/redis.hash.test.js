@@ -3,6 +3,9 @@ const assert = require('assert')
 
 require('@drifted/env/test');
 var Session = require(path.join(__dirname, '..', 'redis', 'hash', 'session'));
+var {
+  exception
+} = require('@drifted/qa');
 
 describe('session:redis:hash', function() {
   var id;
@@ -34,7 +37,7 @@ describe('session:redis:hash', function() {
     })
   })
 
-  xit('unset', function(done) {
+  it('unset', function(done) {
     var session = new Session({id});
     session.unset('user_id').then(() => {
       assert.equal(session.user_id, undefined);
@@ -42,7 +45,7 @@ describe('session:redis:hash', function() {
         assert.equal(session.user_id, undefined);
         done();
       })
-    })
+    }).catch(exception(done));
   })
 })
 

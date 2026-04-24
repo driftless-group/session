@@ -8,12 +8,12 @@ class Session extends AbstractSession {
   
   unset(name) {
     var self = this;
-    return new Promise((resolve, reject) => {
-      client.hDel(self.id, name).then((response) => {
-        self.read().then(() => {
-          resolve();
-        })
-      }).catch(reject);
+    return new Promise(async(resolve, reject) => {
+      await client.del(self.id);
+      delete self[name]; 
+      self.save().then(() => {
+        resolve();
+      })
     })   
   }
 
