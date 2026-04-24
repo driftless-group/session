@@ -1,6 +1,7 @@
 const path = require('path');
 
 
+
 class AbstractSession {
   constructor(options={}) {
     Object.assign(this, options);
@@ -23,7 +24,7 @@ class AbstractSession {
     return obj;
   }
 
-  obj() {
+  saveable() {
     var self = this;
     return Object.keys(this).filter((key) => { 
       return key != '_id'; 
@@ -35,9 +36,13 @@ class AbstractSession {
   }
 
   prepare() {
-    return this.obj();
+    return this.saveable();
   }
 
 }
 
+
+
 module.exports = AbstractSession;
+
+

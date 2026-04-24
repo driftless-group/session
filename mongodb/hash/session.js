@@ -29,7 +29,7 @@ class HashedSession extends Session {
   }
 
   prepare() {
-    return encryption.prepare(this.obj());
+    return encryption.prepare(this.saveable());
   }  
 
 }
