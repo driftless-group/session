@@ -22,7 +22,7 @@ class Session extends AbstractSession {
     })
   }
 
-  unset(name) {
+  remove(name) {
     var self = this;
     return new Promise(async(resolve, reject) => {
       await client.del(self.id);

@@ -54,9 +54,9 @@ describe('session:mongodb:hash', function() {
     })
   })
 
-  it('unset', function(done) {
+  it('remove', function(done) {
     var session = new Session({_id});
-    session.unset('user_id').then(() => {
+    session.remove('user_id').then(() => {
       assert.equal(session.user_id, undefined);
       done();
     }).catch(exception(done));

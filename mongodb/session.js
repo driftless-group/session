@@ -53,7 +53,7 @@ class Session extends AbstractSession {
     })
   }
 
-  unset(name) {
+  remove(name) {
     var response, self = this;
     
     return new Promise((resolve, reject) => {
