@@ -13,8 +13,14 @@ if (process.env.REDIS_URL != undefined) {
   // session in the first place.
 
   // to choose one of the versions directly just require
-  // requrie('@drifted/session/redis');
+  // require('@drifted/session/redis');
   // or
   // require('@drifted/session/mongodb');
+
+  // or
+  // require('@drifted/session/redis/hash');
+  // or
+  // require('@drifted/session/mongodb/hash');
+  // if you are worried about privacy 
 }
 
