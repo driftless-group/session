@@ -5,6 +5,7 @@ require('@drifted/env/test');
 require('@drifted/db');
 var mongoose = require('mongoose');
 const crypto = require('crypto');
+
 var {
   exception
 } = require('@drifted/qa');
@@ -37,7 +38,6 @@ describe('session:mongodb:hash', function() {
     session.user_id = 'test'
     session.test = true
     session.save().then(() => {
-      //console.log(session);
       assert.equal(session.user_id, 'test');
       done()
     }).catch((err) => {
@@ -54,11 +54,12 @@ describe('session:mongodb:hash', function() {
     })
   })
 
-  xit('unset', function(done) {
+  it('unset', function(done) {
     var session = new Session({_id});
     session.unset('user_id').then(() => {
+      assert.equal(session.user_id, undefined);
       done();
-    })
+    }).catch(exception(done));
   })
 })
 

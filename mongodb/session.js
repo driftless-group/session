@@ -58,31 +58,37 @@ class Session extends AbstractSession {
     var response, self = this;
     
     return new Promise((resolve, reject) => {
-       connect().then(async(client) => {  
-        try {
+      connect().then(async(client) => {  
+        const database = client.db(Session.database());
+        const sessions = database.collection("sessions");
+        const query = { _id: new ObjectId(self._id) };
 
-          const database = client.db(Session.database());
-          const sessions = database.collection("sessions");
-          const query = { _id: self._id };
-          
+        var doc = await sessions.findOne({_id: new ObjectId(self._id) });
+
+        if (doc.encryptedData == undefined && doc.iv == undefined) {
           var updateDoc = {
             "$unset": {}
           }
-
           updateDoc['$unset'][name] = '';
-
+          
           var ack = await sessions.updateOne(query, updateDoc);
-          response = await sessions.findOne({_id: self._id});
           delete self[name];
-          Object.assign(self, response);
+          Object.assign(self, self.process(response));
+        } else {
+          var processed = self.process(doc);
 
-        } catch(error) {
-          console.log(error);
+          delete processed[name];
+          delete self[name];
+          Object.assign(self, processed);
+
+          var ack = await sessions.updateOne(query, { $set: self.prepare(processed) })
+          var response = await sessions.findOne({_id: new ObjectId(self._id) });
+          Object.assign(self, processed);
         }
+        
         self.read().then(() => {
           resolve();
         })
-
       })
     })   
   }

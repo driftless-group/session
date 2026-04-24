@@ -3,11 +3,15 @@ const fs = require('fs');
 const crypto = require('crypto');
 const algorithm = 'aes-256-cbc';
 
+
+
 function kdf(input) {
   var buf = Buffer.from(input, 'utf8');
   return Buffer.concat([buf], 32);  
 }
 module.exports.kdf = kdf;
+
+
 
 function secret() {
   var file =  path.join(process.cwd(), 'config', 'secret.json');
@@ -29,6 +33,7 @@ function secret() {
 module.exports.secret = secret;
 
 
+
 function encrypt(text) {
   const iv = crypto.randomBytes(16);
   let cipher = crypto.createCipheriv(algorithm, kdf(secret()), iv);
@@ -37,6 +42,7 @@ function encrypt(text) {
   return { iv: iv.toString('hex'), encryptedData: encrypted.toString('hex') };
 }
 module.exports.encrypt = encrypt;
+
 
 
 function decrypt(obj) {
@@ -54,14 +60,17 @@ function decrypt(obj) {
 module.exports.decrypt = decrypt;
 
 
+
 function processor(obj) {
   return JSON.parse(decrypt(obj));
 }
 module.exports.process = processor;
 
 
+
 function prepare(obj) {
   return encrypt(JSON.stringify(obj))
 }  
 module.exports.prepare = prepare;
+
 
