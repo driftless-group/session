@@ -50,6 +50,7 @@ describe('session:redis', function() {
       assert.equal(session.user_id, undefined);
       session.read().then(() => {
         assert.equal(session.user_id, undefined);
+
         done();
       })
     })
