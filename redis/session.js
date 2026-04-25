@@ -5,7 +5,15 @@ var AbstractSession = require(path.join(__dirname, '..', 'abstract'));
 var client = require(path.join(__dirname, 'client'));
 
 class Session extends AbstractSession {
+  constructor(data={}) {
+    super(data);
 
+    if (this.id == undefined) {
+      this.id = this.generateId();
+    }  
+  }
+
+ 
   static clear() {
     var self = this;
     

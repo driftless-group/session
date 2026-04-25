@@ -1,13 +1,8 @@
 const path = require('path');
 
-
-
 class AbstractSession {
   constructor(options={}) {
     Object.assign(this, options);
-    if (this.id == undefined) {
-      this.id = this.generateId();
-    }  
   }
 
   prefix() {

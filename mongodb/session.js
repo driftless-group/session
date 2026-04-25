@@ -9,6 +9,10 @@ let { connect  } = require(path.join(__dirname, 'client'));
 const { ObjectId } = require('mongodb');
 
 class Session extends AbstractSession {
+  constructor(data={}) {
+    super(data);
+  }
+
   static clear() {
     var response, self = this;
     return new Promise((resolve, reject) => {
