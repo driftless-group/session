@@ -1,6 +1,6 @@
 {
   "name": "@drifted/session",
-  "version": "0.0.56",
+  "version": "0.0.60",
   "description": "",
   "homepage": "https://github.com/driftless-group/session#readme",
   "bugs": {
@@ -28,6 +28,6 @@
     "redis": "^5.12.1"
   },
   "dependencies": {
-    "@drifted/encryption": "^0.0.30"
+    "@drifted/encryption": "^0.0.31"
   }
 }
