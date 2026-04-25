@@ -28,6 +28,6 @@
     "redis": "^5.12.1"
   },
   "dependencies": {
-    "@drifted/encryption": "^0.0.31"
+    "@drifted/encryption": "^0.0.33"
   }
 }
