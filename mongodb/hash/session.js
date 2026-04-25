@@ -1,7 +1,7 @@
 const path = require('path');
 const Session = require(path.join(__dirname, '..', 'session'));
 const fs = require('fs');
-const encryption = require(path.join(__dirname, '..', '..', 'encryption'));
+const encryption = require('@drifted/encryption/api');
 
 class HashedSession extends Session {
 
