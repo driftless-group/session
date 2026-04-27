@@ -55,9 +55,11 @@ class Session extends AbstractSession {
   save() {
     var self = this;
     return new Promise((resolve, reject) => {
-      client.hSet(self.id, self.prepare()).then(() => {
-        resolve();
-      }).catch(reject);
+      client.del(self.id).then(() => {
+        client.hSet(self.id, self.prepare()).then(() => {
+          resolve();
+        }).catch(reject);
+      });
     })
   }
 
